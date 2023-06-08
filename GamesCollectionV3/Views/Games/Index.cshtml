@@ -1,0 +1,87 @@
+﻿@using GamesCollectionV3.Utility;
+@model PaginatedList<GamesCollectionV3.Models.Game>
+
+@{
+    ViewData["Title"] = "Index";
+}
+    <h1>Games</h1>
+
+<div style="display:flex; justify-content: flex-end">
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+               Release date
+            </th>
+            <th>
+                Developer
+            </th>
+            <th>
+                Platform
+            </th>
+            <th>
+               Genre
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Platforms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+<div style="display:flex; justify-content:center; align-items: bottom;">
+
+@for (int i = 1; i <= Model.TotalPages; i++)
+{
+        @if (Model.PageIndex == i)
+        {
+           <a asp-action="index" class="btn btn-primary" asp-route-pageNumber="@(i)" style="border-radius:50%; margin-right: 10px; marign-left:10px; display:flex; justify-content: center; align-items:center">@i</a>    
+        }
+        else
+        {
+           <a asp-action="index" class="btn btn-default" asp-route-pageNumber="@(i)" style="margin-right: 10px; marign-left:10px; display:flex; justify-content: center; align-items:center">@i</a>   
+        }
+}
+
+</div>
+
